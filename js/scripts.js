@@ -17,16 +17,26 @@ function getData(data) {
     ;
     if (data == "next") {
         nameOfParfum = getNameOfParfum();
-        xmlhttp.open("GET", "/data?data=" + data + "&parfum=" + nameOfParfum, true);
+        nameOfTeam = getNameOfTeam();
+        xmlhttp.open("GET", "/data?data=" + data + "&parfum=" + nameOfParfum + "&teamName=" + nameOfTeam, true);
         xmlhttp.send();
     } else if (data == "result") {
-        xmlhttp.open("GET", "/data?data=" + data + "&parfum=" + nameOfParfum +"&"+ getIngredients(), true);
+        xmlhttp.open("GET", "/data?data=" + data + "&parfum=" + nameOfParfum +"&"+ getIngredients() + "&teamName=" + nameOfTeam, true);
         xmlhttp.send();
     }
 }
 
 function getNameOfParfum() {
     element = document.getElementById('parfumName');
+    if (element != null) {
+        return element.value;
+    } else {
+        return null;
+    }
+}
+
+function getNameOfTeam() {
+    element = document.getElementById('teamName');
     if (element != null) {
         return element.value;
     } else {
