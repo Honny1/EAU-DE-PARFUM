@@ -66,10 +66,10 @@ function del(inputTeam) {
         xmlhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 alert(this.responseText);
+                location.href = "/admin";
             }
         };
         xmlhttp.open("GET", "/reset?teamName=" + team, true);
         xmlhttp.send();
-        location.href = "/admin";
     }
 }
