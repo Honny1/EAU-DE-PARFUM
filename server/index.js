@@ -34,7 +34,7 @@ function renderResult(result, res) {
 				break;
 		}
 	}
-	res.write('</tr></table><br><center><a onclick="location.reload();" class="btn btn-danger">AGAIN</a><a href="/" class="btn btn-info">BACK TO HOME</a></center>');
+	res.write('</tr></table><br><center><a onclick="location.reload();" class="text-white btn btn-danger">AGAIN</a><a href="/" class="btn btn-info">BACK TO HOME</a></center>');
 	res.end();
 }
 
@@ -396,7 +396,7 @@ function teamInfo(req, res) {
 					});
 					res.write('</tr></table></br>');
 				});
-				res.write('<center><a onclick="del(\'' + team.name + '\')" class="btn btn-danger">REMOVE TEAM</a>');
+				res.write('<center><a onclick="del(\'' + team.name + '\')" class="text-white btn btn-danger">REMOVE TEAM</a>');
 				fs.readFile('./html/teamEnd.html', function (err, html) {
 					if (err) throw err;
 					res.write(html);
