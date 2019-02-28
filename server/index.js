@@ -531,6 +531,13 @@ function home(req, res) {
 server.use(bodyParser.json());
 
 server.get('/', home);
+server.get('/mix', returnMixPage);
+server.get('/admin', returnAdminPage);
+server.post('/admin', returnAdminPage);
+server.get('/teamInfo', teamInfo);
+server.get('/reset', reset);
+
+
 server.get('/data', returnData);
 server.get('/css', returnCss);
 server.get('/js', returnJs);
@@ -542,11 +549,7 @@ server.get('/jquerySlim', returnJquerySlim);
 server.get('/popper', returnPopper);
 server.get('/bootstrapJs', returnBootstrapJs);
 
-
-server.get('/mix', returnMixPage);
-server.get('/admin', returnAdminPage);
-server.post('/admin', returnAdminPage);
-server.get('/teamInfo', teamInfo);
-server.get('/reset', reset);
+server.post('*',home);
+server.get('*',home); 
 
 module.exports = server; 
