@@ -1,2 +1,31 @@
 dev run: npx nodemon
 run: node index.js
+
+REDIRECT  (need support HTTPS and HTTP):
+
+echo "1" > /proc/sys/net/ipv4/ip_forward
+iptables -t nat -A PREROUTING -p tcp --dport 80 -j DNAT --to-destination 172.24.1.1:8080 
+iptables -t nat -A PREROUTING -p tcp --dport 443 -j DNAT --to-destination 172.24.1.1:6060 
+iptables -t nat -A POSTROUTING -j MASQUERADE
+
+MONGODB SERVICE CONFIG 
+
+[Unit]
+Description=High-performance, schema-free document-oriented database
+After=network.target
+
+[Service]
+User=mongodb
+ExecStartPre=/usr/bin/mongod --repair --dbpath /var/lib/mongodb/
+ExecStart=/usr/bin/mongod --quiet --config /etc/mongodb.conf
+
+[Install]
+WantedBy=multi-user.target
+
+INSTALL APP AS SERVICE 
+
+sudo npm install forever-service -g
+sudo forever-service install EAU-DE-PARFUM --script index.js
+sudo service EAU-DE-PARFUM status
+sudo service EAU-DE-PARFUM enable
+sudo reboot
