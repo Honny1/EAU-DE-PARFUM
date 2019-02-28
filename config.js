@@ -1,6 +1,7 @@
 /* eslint semi: "error" */
 const config = {
-  port: 8080,
+    HTTPport: 8080,
+    HTTPSport: 6060,
   mongoUrl: ''
 };
 
