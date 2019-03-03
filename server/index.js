@@ -374,7 +374,7 @@ function teamInfo(req, res) {
 			fs.readFile('./html/teamTop.html', function (err, html) {
 				if (err) throw err;
 				res.write(html);
-				res.write(team.name + '</h2>');
+                res.write('<h2 style="font-weight: bold;">Team: '+team.name + '</h2>');
 				team.attempts.reverse();
 				team.attempts.forEach(function (item, index) {
 					res.write('</br><h4 style="font-weight: bold;">' + item.parfumName + ': ' + item.try + '</h4>');
