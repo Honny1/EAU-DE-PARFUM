@@ -8,7 +8,7 @@ const keys_dir = 'keys/';
 
 const server_options = {
   key  : fs.readFileSync(keys_dir + 'key.pem'),
-  cert : fs.readFileSync(keys_dir + 'certificate.p12')
+  cert : fs.readFileSync(keys_dir + 'certificate.pem')
 };
 
 https.createServer(server_options,server).listen(config.HTTPSport, () => {
