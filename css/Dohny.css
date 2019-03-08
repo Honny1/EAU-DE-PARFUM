@@ -28,7 +28,18 @@ h1{
 	background: rgba(71, 71, 71, 0.96);
     text-align: center;
     box-shadow: 5px 10px 30px;
-    font-size: 18;
+}
+
+.containerMix{
+	width: auto;
+	padding: 40px;
+	position: absolute;
+	top: 40%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	background: rgba(71, 71, 71, 0.96);
+    text-align: center;
+    box-shadow: 5px 10px 30px;
 }
 
 /*Buttons and Forms*/
@@ -62,8 +73,9 @@ h1{
 }
 
 /*Mix Buttons*/
-.btn_Danger, .btn_Success{
+.btn_Danger, .btn_Success{ 
     background: none;
+    /* width: 90px; */
     margin: 25px 5px auto;
     text-align: center;
     border: 2px solid #2ECC71;
@@ -73,7 +85,9 @@ h1{
     border-radius: 24px;
     transition: 0.25s;
     cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
 }
+
 /*Buttons hover*/
 .btn_Admin:hover, .btn_Game:hover, .btn_Add:hover, .btn_Danger:hover, .btn_Success:hover{
     background: #2ECC71;
@@ -102,6 +116,8 @@ h1{
 
 .perfumeName{
     display: block;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .text_WhiteDanger{
@@ -117,4 +133,48 @@ h1{
 .text_WhiteSuccess{
     background: green;
     color: white;
+}
+
+select{
+    margin: 20px 5px 0px 5px;
+    padding: 5px;
+    background-color: rgb(43, 42, 41);
+    border: none;
+    color: #fff;
+}
+
+/*Responsive mix table*/
+@media 
+only screen and (max-width: 760px),
+(min-device-width: 768px) and (max-device-width: 1024px)  {
+
+	/* Force table to not be like tables anymore */
+	table, thead, tbody, th, td, tr { 
+		display: block; 
+	}
+	
+	/* Hide table headers (but not display: none;, for accessibility) */
+	thead tr { 
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+	
+	td { 
+		/* Behave  like a "row" */
+		border: none;
+		position: relative;
+		padding-left: 50%; 
+	}
+	
+	td:before { 
+		/* Now like a table header */
+		position: absolute;
+		/* Top/left values mimic padding */
+		top: 6px;
+		left: 6px;
+		width: 45%; 
+		padding-right: 10px; 
+		white-space: nowrap;
+    }
 }

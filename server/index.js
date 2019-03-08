@@ -34,7 +34,7 @@ function renderResult(result, res) {
 				break;
 		}
 	}
-	res.write('</tr></table><br><center><a onclick="location.reload();" class="text-white btn btn-danger">AGAIN</a><a href="/" class="btn btn-info">BACK TO HOME</a></center>');
+	res.write('</tr></table><br><center><input type="submit" onclick="location.reload();" name="" value="AGAIN" class="btn_Danger"><input type="submit" onclick="getHome();" name="" value="BACK TO HOME" class="btn_Success">');
 	res.end();
 }
 
