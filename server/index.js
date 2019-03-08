@@ -242,17 +242,17 @@ function returnMixPage(req, res) {
 				});
 				res.write('</select>');
 
-				res.write('<label for="sel1">Parfum</label><select id="parfumName" class="form-control dropdown-primary" size="1" required><option value="" disabled selected>Choose Parfum</option>');
+				res.write('<label for="sel1">Perfume</label><select id="parfumName" class="form-control dropdown-primary" size="1" required><option value="" disabled selected>Choose Perfume</option>');
 				data.parfums.forEach(function (item) {
 					switch (item.Type) {
 						case "EAU DE COLOGNE":
-							res.write('<option class="text-white bg-danger" value="' + item.Name + '">' + item.ID + ' ' + item.Name + '</option>');
+							res.write('<option class="text_WhiteDanger" value="' + item.Name + '">' + item.ID + ' ' + item.Name + '</option>');
 							break;
 						case "EAU DE TOILETTE":
-							res.write('<option class="text-white bg-warning" value="' + item.Name + '">' + item.ID + ' ' + item.Name + '</option>');
+							res.write('<option class="text_WhiteWarning" value="' + item.Name + '">' + item.ID + ' ' + item.Name + '</option>');
 							break;
 						case "EAU DE PARFUM":
-							res.write('<option class="text-white bg-success" value="' + item.Name + '">' + item.ID + ' ' + item.Name + '</option>');
+							res.write('<option class="text_WhiteSuccess" value="' + item.Name + '">' + item.ID + ' ' + item.Name + '</option>');
 							break;
 						default:
 							res.write("error");
@@ -301,8 +301,8 @@ function returnAdminPage(req, res) {
 				//console.log(result.length);
 				db.close();
 
-				res.write('<input name="teamName" id="teamName" type="text" value="team' + result.length + '">');
-				res.write('</th><th><input style="width:100%" type="submit" value="add"></div></th></tr></table>');
+				res.write('<input class="form_teamName" name="teamName" id="teamName" type="text" placeholder="Team Name" value="team' + result.length + '">');
+				res.write('</th><th><input class="btn_Add" style="width:100%" type="submit" value="Add"></div></th></tr></table>');
 
 				MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
 					res.write('</form></div>');
@@ -311,7 +311,7 @@ function returnAdminPage(req, res) {
 					dbo.collection("teams").find().toArray(function (err, result) {
 						if (err) throw err;
 						result.forEach(function (item) {
-							res.write('<a href="/teamInfo?data=' + item.name + '"class="btn btn-success" style="width:100%">' + item.name + '</a></br>');
+							res.write('<a href="/teamInfo?data=' + item.name + '"class="btn_teamName">' + item.name + '</a></br>');
 						});
 
 						db.close();
@@ -374,7 +374,7 @@ function teamInfo(req, res) {
 			fs.readFile('./html/teamTop.html', function (err, html) {
 				if (err) throw err;
 				res.write(html);
-                res.write('<h2 style="font-weight: bold;">Team: '+team.name + '</h2>');
+				res.write('<h2 style="font-weight: bold;">Team: ' + team.name + '</h2>');
 				team.attempts.reverse();
 				team.attempts.forEach(function (item, index) {
 					res.write('</br><h4 style="font-weight: bold;">' + item.parfumName + ': ' + item.try + '</h4>');
@@ -528,6 +528,21 @@ function home(req, res) {
 	});
 }
 
+function returnDohny(req, res) {
+	fs.readFile('./css/Dohny.css', function (err, css) {
+		if (err) throw err;
+		res.writeHeader(200, { "Content-Type": "text/css" });
+		res.write(css);
+		res.end();
+	});
+}
+
+function returnBackground(req, res) {
+	var img = fs.readFileSync('./images/bg.jpg');
+	res.writeHead(200, { 'Content-Type': 'image/jpg' });
+	res.end(img, 'binary');
+}
+
 server.use(bodyParser.json());
 
 server.get('/', home);
@@ -548,8 +563,11 @@ server.get('/jquery', returnJquery);
 server.get('/jquerySlim', returnJquerySlim);
 server.get('/popper', returnPopper);
 server.get('/bootstrapJs', returnBootstrapJs);
+server.get('/Dohny', returnDohny);
+server.get('/background', returnBackground);
 
-server.post('*',home);
-server.get('*',home); 
+server.post('*', home);
+server.get('*', home);
+
 
 module.exports = server; 
