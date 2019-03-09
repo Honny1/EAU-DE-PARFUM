@@ -236,7 +236,7 @@ function returnMixPage(req, res) {
 					teams.push(item.name);
 				});
 				db.close();
-				res.write('<label for="sel1">Team</label><select id="teamName" class="form-control dropdown-primary" size="1" required><option value="" disabled selected>Choose team</option>');
+				res.write('<label for="sel1">Team</label><select id="teamName" class="teamName" size="1" required><option value="" disabled selected>Choose team</option>');
 				teams.forEach(function (item) {
 					res.write('<option value="' + item + '">' + item + '</option>');
 				});
@@ -302,7 +302,7 @@ function returnAdminPage(req, res) {
 				db.close();
 
 				res.write('<input class="form_teamName" name="teamName" id="teamName" type="text" placeholder="Team Name" value="team' + result.length + '">');
-				res.write('</th><th><input class="btn_Add" style="width:100%" type="submit" value="Add"></div></th></tr></table>');
+				res.write('</th><th><center><input class="btn_Add" type="submit" value="ADD"></center></div></th></tr></table>');
 
 				MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
 					res.write('</form></div>');
@@ -396,7 +396,7 @@ function teamInfo(req, res) {
 					});
 					res.write('</tr></table></br>');
 				});
-				res.write('<center><a onclick="del(\'' + team.name + '\')" class="text-white btn btn-danger">REMOVE TEAM</a>');
+				res.write('<center><a onclick="del(\'' + team.name + '\')" class="btn_Danger">REMOVE TEAM</a>');
 				fs.readFile('./html/teamEnd.html', function (err, html) {
 					if (err) throw err;
 					res.write(html);
