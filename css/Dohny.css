@@ -286,4 +286,9 @@ only screen and (max-width: 760px),
 	    left: 50%;
 	    transform: translate(-50%,0);
     }
+    /*Buttons in results section responsive on mobile*/
+    .results .btn_Danger, .results .btn_Success{
+        display: block;
+        margin-top: 5px;
+    }
 }
