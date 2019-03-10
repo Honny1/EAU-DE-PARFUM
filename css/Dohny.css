@@ -1,13 +1,15 @@
 /* Dohny CSS */
 
 /*--Body--*/
-body{
+html{
     font-family: 'Montserrat', sans-serif;
-    background-image: url(/background);
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-attachment: fixed;
+    background: url(/background) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
     background-size: cover;
+    height: 100%;
+    overflow: hidden;
 }
 
 h1{
@@ -25,6 +27,10 @@ h3{
 .results #app{
     background-color: rgba(75, 54, 39, 0.973);
     padding: 30px;
+    margin-bottom: 30px;
+    max-height: 850px;
+    display: block;
+    overflow: auto;
 }
 
 /*--Containers--*/
@@ -141,7 +147,7 @@ center .btn_Danger, .btn_Success{
     top: 55%;
     transform: translate(-50%,-50%);
     background-color: #532605;
-   /* background-color: #442007;*/
+    color: white;
 }
 
 #parfumName{
@@ -160,7 +166,7 @@ center .btn_Danger, .btn_Success{
     margin-top: 10px;
     margin-bottom: 10px;
     background-color: #532605;
-    color: #E8D0B0;
+    color: white;
 }
 
 /*Labels and select for mix*/
@@ -219,13 +225,16 @@ select{
 }
 
 /*--Responsivnes--*/
-/*Responsive mix table*/
+/*Responsivnes for portrait mode*/
 @media 
 only screen and (max-width: 760px),
-(min-device-width: 768px) and (max-device-width: 1024px)  {
-
+(min-device-width: 768px) and (max-device-width: 1024px) and (orientation:portrait){
+    /*Responsive tables*/
 	/* Force table to not be like tables anymore */
-	.containerMix (table, thead, tbody, th, td, tr), .form-groupAdmin (table, thead, tbody, th, td, tr) { 
+    .containerMix table, thead, tbody, th, td, tr{ 
+        display: block;
+	} 
+    .form-groupAdmin table, thead, tbody, th, td, tr{ 
 		display: block; 
 	}
 	
@@ -253,12 +262,30 @@ only screen and (max-width: 760px),
 		padding-right: 10px; 
 		white-space: nowrap;
     }
+    /*Responsive table with the result images*/
+    .containerMix tr{
+        max-height: 500px;
+    }
+    
+    .containerMix table, .containerMix tr{
+        display: block;
+        overflow: auto;
+    }
 
     /*Container responsive on mobile*/
     .containerMix{
         position: absolute;
         top: 50%;
         left: 50%;
+    }
+
+    /*Responsive perfume name label*/
+    #parfumName{
+        margin-top: 25px;
+    }
+    /*Responsive select*/
+    select{
+        margin: 5px 5px 20px 5px;
     }
 
     /*Add button in admin section responsive on mobile*/
@@ -276,6 +303,7 @@ only screen and (max-width: 760px),
     .btn_teamName{
         margin-top: 5px;
     }
+
     /*Responsive containers*/
     .container{
         height: auto;
@@ -286,10 +314,55 @@ only screen and (max-width: 760px),
 	    left: 50%;
 	    transform: translate(-50%,0);
     }
+
+    .containerMix{
+        height: auto;
+        position: absolute;
+	    top: 5%;
+	    left: 50%;
+        transform: translate(-50%,0);
+    }
+
+    #body{
+        min-height: 100% !important;
+    }
+    /*--Results--*/
     /*Buttons in results section responsive on mobile*/
     .results .btn_Danger, .results .btn_Success{
         display: block;
         margin-top: 5px;
     }
 
+    .resultPage{
+        max-height: 650px;
+        display: block;
+        overflow: auto;
+    }
+    th{
+        padding: 2px;
+    }
+    tr{
+        padding: 5px;
+    }
+}
+/* Landscape styles here */
+@media screen and (orientation:landscape){
+    th {
+        font-weight: bold;
+        text-align: -internal-center;
+    }
+
+    td, th {        
+        display: table-cell;
+        vertical-align: inherit;
+        padding: 10px;
+        border-color: grey;
+    }
+
+    table {
+        display: table;
+        border-collapse: separate;
+        border-spacing: 2px;
+        border-color: grey;
+    }
 }

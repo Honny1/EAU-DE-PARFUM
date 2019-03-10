@@ -242,7 +242,7 @@ function returnMixPage(req, res) {
 				});
 				res.write('</select>');
 
-				res.write('<label for="sel1">Perfume</label><select id="parfumName" class="form-control dropdown-primary" size="1" required><option value="" disabled selected>Choose Perfume</option>');
+				res.write('<label for="sel1" class="labelPerfume">Perfume</label><select id="parfumName" class="perfumeName" size="1" required><option value="" disabled selected>Choose Perfume</option>');
 				data.parfums.forEach(function (item) {
 					switch (item.Type) {
 						case "EAU DE COLOGNE":
