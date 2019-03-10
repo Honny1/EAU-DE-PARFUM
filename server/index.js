@@ -374,7 +374,7 @@ function teamInfo(req, res) {
 			fs.readFile('./html/teamTop.html', function (err, html) {
 				if (err) throw err;
 				res.write(html);
-                res.write('<h2 style="font-weight: bold;">Team: '+team.name + '</h2>');
+				res.write('<h2 style="font-weight: bold;">Team: ' + team.name + '</h2>');
 				team.attempts.reverse();
 				team.attempts.forEach(function (item, index) {
 					res.write('</br><h4 style="font-weight: bold;">' + item.parfumName + ': ' + item.try + '</h4>');
@@ -549,7 +549,7 @@ server.get('/jquerySlim', returnJquerySlim);
 server.get('/popper', returnPopper);
 server.get('/bootstrapJs', returnBootstrapJs);
 
-server.post('*',home);
-server.get('*',home); 
+server.post('*', home);
+server.get('*', home);
 
 module.exports = server; 
