@@ -5,15 +5,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="/css">
+    <!---This meta prevents from zooming on iOS devicesJo-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <!-- <link rel="stylesheet" href="/css"> -->
     <script src="/js"></script>
     <link
         href="data:image/x-icon;base64,AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANO39//Tt/f/07f3/9O39/8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANO39//r3vv/6977/+ve+//r3vv/07f3/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANO39/fr3vv/6977/+ve+//r3vv/6977/+ve+//Tt/f/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADVu/f/6977/+ve+//r3vv/6977/+ve+//r3vv/6977/9O39/8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADTt/f/07f3/+XU+v/r3vv/6977/+ve+//r3vv/6977/9O39//Tt/f/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA///////////17/3/07f3/9O39//Tt/f/07f3/9O39//Tt/f/07f3/9O3988AAAAAAAAAAAAAAAAAAAAAAAAAAGpcfAf//////////9O39//Tt/f/07f3/9O39//Tt/f/07f3/9O3988AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA07f3V//////Tt/f/07f3/9O39//Tt/f/07f3/9O39+cAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADTt/fP5dT6/9O39//Tt/f/07f3/9O39+cAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANO39//Tt/f/07f3/9O39/cAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABqXHwPalx8BwAAAAAAAAAAAAAAAAAAAAAAAAAACAcF/wgHBf8EBAMfAAAAAAAAAAAAAAAA07f3twAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgHBf8IBwX/CAcF/wgHBf8IBwX/07f3r9O399cAAAAAalx8L9O39/dqXHx/AAAAAAAAAAAAAAAAAAAAAAgHBc8IBwX/CAcF/wgHBf8AAAAAAAAAAAAAAADTt/fHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIBwVPCAcF/wgHBf8IBwXPAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAalx8H2pcfD8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//8AAPD/AADgfwAAwD8AAMAfAACAHwAAgA8AAMAfAADgPwAA4H8AAPD/AAD57wAA+A0AAPDvAAD4/wAA//8AAA=="
         rel="icon" type="image/x-icon" />
-
-    <link rel="stylesheet" href="/bootstrap"
+    <link rel="stylesheet" href="/Dohny">
+    <!-- <link rel="stylesheet" href="/bootstrap"
         integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link rel="stylesheet" href="/animate">
+    <link rel="stylesheet" href="/animate"> -->
     <script src="/vue"></script>
     <script src="/jquery"></script>
 
@@ -22,9 +24,9 @@
 
 <body>
     <div id="app">
-        <div class="container">
+        <div class="containerMix">
             <div id="body">
-                <h2>Mix</h2>
+                <h1>Mix</h1>
                 <div id="data">
                     <form autocomplete="off" onsubmit="getData('next');return false;" id="form">
                         <div class="form-group">

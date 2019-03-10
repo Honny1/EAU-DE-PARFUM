@@ -1,0 +1,439 @@
+/* Dohny CSS */
+
+/*--Body--*/
+html{
+    font-family: 'Montserrat', sans-serif;
+    background: url(/background) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    height: 100%;
+    overflow: hidden;
+}
+
+/*Apple buttons fix*/
+input[type="submit"], input[type="button"], select{
+    -webkit-appearance: none;
+}
+
+/* arrows */
+select{
+    min-width: 170px;
+    background-image:
+      linear-gradient(45deg, transparent 50%, gray 50%),
+      linear-gradient(135deg, gray 50%, transparent 50%),
+      linear-gradient(to right, #ccc, #ccc);
+    background-position:
+      calc(100% - 18px) calc(0.7em + 2px),
+      calc(100% - 13px) calc(0.7em + 2px),
+      calc(100% - 2.5em) 0.2em;
+    background-size:
+      5px 5px,
+      5px 5px,
+      1px 1.5em;
+    background-repeat: no-repeat;
+  }
+  
+select:focus{
+    background-image:
+      linear-gradient(45deg, #2ECC71 50%, transparent 50%),
+      linear-gradient(135deg, transparent 50%, #2ECC71 50%),
+      linear-gradient(to right, #ccc, #ccc);
+    background-position:
+      calc(100% - 13px) calc(0.7em + 2px),
+      calc(100% - 18px) calc(0.7em + 2px),
+      calc(100% - 2.5em) 0.2em;
+    background-size:
+      5px 5px,
+      5px 5px,
+      1px 1.5em;
+    background-repeat: no-repeat;
+    border-color: green;
+    outline: 0;
+}
+
+/*iPhone specific arrows*/
+@supports (-webkit-overflow-scrolling: touch) {
+    select{
+        background-position:
+          calc(100% - 15px) calc(0.7em + 2px),
+          calc(100% - 10px) calc(0.7em + 2px),
+          calc(100% - 2.5em) 0.3em;
+      }
+      
+    select:focus{
+        background-position:
+          calc(100% - 10px) calc(0.7em + 2px),
+          calc(100% - 15px) calc(0.7em + 2px),
+          calc(100% - 2.5em) 0.3em;
+    }  
+  }
+
+
+h1{
+	color: #E8D0B0;
+	text-transform: uppercase;
+    font-weight: 600;
+    font-size: 32;
+}
+
+h3{
+    color: #E8D0B0;
+}
+
+/*--Results--*/
+.results #app{
+    background-color: rgba(75, 54, 39, 0.973);
+    padding: 30px;
+    margin-bottom: 30px;
+    max-height: 850px;
+    display: block;
+    overflow: auto;
+}
+
+/*Color for text in Results*/
+.results{
+    color: #E8D0B0;
+}
+
+/*Buttons further from tables*/
+.results center{
+    margin-top: 20px;
+}
+
+/*Result table border*/
+.results table, .results th{
+    border: 2px solid rgb(36, 36, 36);
+    border-collapse: collapse;
+}
+
+/*Odd table rows diff bg*/
+.results tr:nth-child(odd) {background: rgba(100, 67, 44, 0.932)}
+
+/*--Containers--*/
+.container, .containerMix, .containerAdmin{
+    padding: 40px;
+    position: absolute;
+    background: rgba(75, 54, 39, 0.932);
+    text-align: center;
+    box-shadow: 10px 20px 60px;
+}
+
+.container, .containerAdmin{
+	width: 300px;
+	top: 10%;
+    left: 50%;
+    transform: translate(-50%,0);
+}
+
+/*Container for MIX section*/
+.containerMix{
+    width: auto;
+	top: 40%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+}
+
+/*--Buttons and Forms--*/
+.btn_Admin, .btn_Game, .btn_Add, .form_teamName, .btn_teamName{
+    background: none;
+    display: block;
+    margin: 2px auto;
+    text-align: center;
+    border: 2px solid #2ECC71;
+    padding: 14px 10px;
+    outline: none;
+    color: #E8D0B0;
+    border-radius: 24px;
+    transition: 0.25s;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.btn_Admin{
+    border-color: #fb3737;
+}
+
+/*--Admin Section--*/
+.btn_teamName{
+    width: 240px;
+    background: #2ECC71;
+    color: #4b3627;
+}
+
+.form_teamName{
+    width: 170px;
+    margin-bottom: 10px;
+    margin-left: 15px;
+}
+
+.btn_Add{
+    padding: 14px 9px 14px 9px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+}
+
+/*White color for labels*/
+.label{
+    color: #E8D0B0;
+}
+
+/*Margin in Admin section*/
+center .btn_Danger, .btn_Success{
+    margin-top: 0; 
+}
+
+/*--Mix Buttons--*/
+.btn_Danger, .btn_Success{ 
+    background: none;
+    /* width: 90px; */
+    margin: 25px 5px auto;
+    text-align: center;
+    border: 2px solid #2ECC71;
+    padding: 14px 10px;
+    outline: none;
+    color: #E8D0B0;
+    border-radius: 24px;
+    transition: 0.25s;
+    cursor: pointer;
+}
+/*Red color for 'BACK' and 'RESET' buttons*/
+.btn_Danger{
+    border-color: #fb3737;
+}
+
+/*--Buttons hover--*/
+.btn_Game:hover, .btn_Add:hover, .btn_Success:hover{
+    background: #2ECC71;
+    color: #4b3627;
+}
+
+.btn_Admin:hover, .btn_Danger:hover{
+    background: #fb3737;
+}
+
+/*--Select Mix--*/
+.teamName{
+    margin-top: 15px;
+    width: 200px;
+    display: block;
+    position: relative;
+    left: 50%;
+    top: 55%;
+    transform: translate(-50%,-50%);
+    background-color: #4b2e19;
+    color: white;
+}
+
+#parfumName{
+    margin-top: 15px;
+    width: 200px;
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: 60%;
+    transform: translate(-50%,-50%);
+    background-color: #4b2e19;
+}
+
+.perfumeName{
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: #4b2e19;
+    color: white;
+}
+
+/*Labels and select for mix*/
+.form-group{
+    color: #E8D0B0; 
+}
+.text_WhiteDanger{
+    background: rgba(206, 1, 1, 0.849);
+    color: white;
+}
+
+.text_WhiteWarning{
+    background: orangered;
+    color: white;
+}
+
+.text_WhiteSuccess{
+    background: green;
+    color: white;
+}
+
+/*Footer*/
+.footer{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    padding: 5px 0px 5px;
+    background: rgba(71, 71, 71, 0.87);
+    vertical-align: center;
+    color: #E8D0B0;
+}
+a{
+    text-decoration: none;
+    color: #a393e6;
+}
+.footer a:hover{
+    color: #2800d4;
+}
+
+/*Make footer invisible on mobile devices*/
+@media (max-width: 760px) {
+    .footer {
+        display: none;
+    }
+}
+
+/*Selects*/
+select{
+    margin: 20px 5px 0px 5px;
+    padding: 5px;
+    background-color: rgb(43, 42, 41);
+    border: none;
+    color: #fff;
+}
+
+/*--Responsivnes--*/
+/*Responsivnes for portrait mode*/
+@media 
+only screen and (max-width: 760px),
+(min-device-width: 768px) and (max-device-width: 1024px) and (orientation:portrait){
+    /*Responsive tables*/
+	/* Force table to not be like tables anymore */
+    .containerMix table, .containerMix thead, .containerMix tbody, .containerMix th, .containerMix td, .containerMix tr{ 
+        display: block;
+	} 
+    .containerMix table, .containerMix thead, .containerMix tbody, .containerMix th, .containerMix td, .containerMix tr{ 
+		display: block; 
+	}
+	
+	.containerMix td,.form-groupAdmin td{ 
+		/* Behave  like a "row" */
+		border: none;
+		position: relative;
+		padding-left: 50%; 
+	}
+	
+	.containerMix td:before, .form-groupAdmin td:before{ 
+		/* Now like a table header */
+		position: absolute;
+		/* Top/left values mimic padding */
+		top: 6px;
+		left: 6px;
+		width: 45%; 
+		padding-right: 10px; 
+		white-space: nowrap;
+    }
+    /*Responsive table with the result images*/
+    .containerMix tr, .container tr{
+        max-height: 500px;
+
+    }
+    
+    .containerMix table, .containerMix tr{
+        display: block;
+    }
+
+    /*Container responsive on mobile*/
+    .containerMix{
+        max-height: 500px;
+        overflow: auto;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+    }
+
+    /*Responsive perfume name label*/
+    #parfumName{
+        margin-top: 25px;
+    }
+    /*Responsive select*/
+    select{
+        margin: 5px 5px 20px 5px;
+    }
+
+    /*Add button in admin section responsive on mobile*/
+    .form_teamName{
+        margin-left: 0;
+        padding: 15px 0px;
+        width: 100%;
+    }
+
+    .btn_Add{
+        margin: 0px 0px 10px 0;
+        padding: 14px 30px;
+    }
+
+    .btn_teamName{
+        margin-top: 5px;
+    }
+
+    /*Responsive containers*/
+    .container, .containerAdmin{
+        height: auto;
+        width: 250px;
+        padding: 40px;
+	    position: absolute;
+	    top: 10%;
+	    left: 50%;
+	    transform: translate(-50%,0);
+    }
+
+    .containerMix{
+        position: absolute;
+	    top: 5%;
+	    left: 50%;
+        transform: translate(-50%,0);
+    }
+
+    .containerAdmin{
+        max-height: 650px !important;
+        overflow: auto;
+    }
+    /*--Results--*/
+    /*Buttons in results section responsive on mobile*/
+    .results .btn_Danger, .results .btn_Success{
+        display: block;
+        margin-top: 5px;
+    }
+
+    .resultPage{
+        max-height: 650px;
+        display: block;
+        overflow: auto;
+    }
+    th{
+        padding: 2px;
+    }
+    tr{
+        padding: 5px;
+    }
+}
+/* Landscape styles here */
+@media screen and (orientation:landscape){
+    th {
+        font-weight: bold;
+        text-align: -internal-center;
+    }
+
+    td, th {        
+        display: table-cell;
+        vertical-align: inherit;
+        padding: 10px;
+        border-color: grey;
+    }
+
+    table {
+        display: table;
+        border-collapse: separate;
+        border-spacing: 2px;
+        border-color: grey;
+    }
+}
