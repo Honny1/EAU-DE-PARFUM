@@ -436,45 +436,8 @@ function reset(req, res) {
 	});
 }
 
-function returnCss(req, res) {
-	fs.readFile('./css/my.css', function (err, css) {
-		if (err) throw err;
-		res.writeHeader(200, { "Content-Type": "text/css" });
-		res.write(css);
-		res.end();
-	});
-}
-
-function returnBootstrap(req, res) {
-	fs.readFile('./css/bootstrap.min.css', function (err, css) {
-		if (err) throw err;
-		res.writeHeader(200, { "Content-Type": "text/css" });
-		res.write(css);
-		res.end();
-	});
-}
-
-
-function returnAnimate(req, res) {
-	fs.readFile('./css/animate.min.css', function (err, css) {
-		if (err) throw err;
-		res.writeHeader(200, { "Content-Type": "text/css" });
-		res.write(css);
-		res.end();
-	});
-}
-
 function returnJs(req, res) {
 	fs.readFile('./js/scripts.js', function (err, javaScript) {
-		if (err) throw err;
-		res.writeHeader(200, { "Content-Type": "text/javascript" });
-		res.write(javaScript);
-		res.end();
-	});
-}
-
-function returnVue(req, res) {
-	fs.readFile('./js/vue.js', function (err, javaScript) {
 		if (err) throw err;
 		res.writeHeader(200, { "Content-Type": "text/javascript" });
 		res.write(javaScript);
@@ -490,34 +453,6 @@ function returnJquery(req, res) {
 		res.end();
 	});
 }
-
-function returnJquerySlim(req, res) {
-	fs.readFile('./js/jquery-3.3.1.slim.min.js', function (err, javaScript) {
-		if (err) throw err;
-		res.writeHeader(200, { "Content-Type": "text/javascript" });
-		res.write(javaScript);
-		res.end();
-	});
-}
-
-function returnPopper(req, res) {
-	fs.readFile('./js/popper.min.js', function (err, javaScript) {
-		if (err) throw err;
-		res.writeHeader(200, { "Content-Type": "text/javascript" });
-		res.write(javaScript);
-		res.end();
-	});
-}
-
-function returnBootstrapJs(req, res) {
-	fs.readFile('./js/bootstrap.min.js', function (err, javaScript) {
-		if (err) throw err;
-		res.writeHeader(200, { "Content-Type": "text/javascript" });
-		res.write(javaScript);
-		res.end();
-	});
-}
-
 
 function home(req, res) {
 	fs.readFile('./html/index.html', function (err, html) {
@@ -554,15 +489,8 @@ server.get('/reset', reset);
 
 
 server.get('/data', returnData);
-server.get('/css', returnCss);
 server.get('/js', returnJs);
-server.get('/bootstrap', returnBootstrap);
-server.get('/animate', returnAnimate);
-server.get('/vue', returnVue);
 server.get('/jquery', returnJquery);
-server.get('/jquerySlim', returnJquerySlim);
-server.get('/popper', returnPopper);
-server.get('/bootstrapJs', returnBootstrapJs);
 server.get('/Dohny', returnDohny);
 server.get('/background', returnBackground);
 

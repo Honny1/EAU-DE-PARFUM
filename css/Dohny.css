@@ -394,7 +394,7 @@ only screen and (max-width: 760px),
     }
 
     .containerAdmin{
-        max-height: 650px !important;
+        max-height: 450px;
         overflow: auto;
     }
     /*--Results--*/
