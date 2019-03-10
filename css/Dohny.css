@@ -12,6 +12,65 @@ html{
     overflow: hidden;
 }
 
+/*Apple buttons fix*/
+input[type="submit"], input[type="button"], select{
+    -webkit-appearance: none;
+}
+
+/* arrows */
+select{
+    min-width: 170px;
+    background-image:
+      linear-gradient(45deg, transparent 50%, gray 50%),
+      linear-gradient(135deg, gray 50%, transparent 50%),
+      linear-gradient(to right, #ccc, #ccc);
+    background-position:
+      calc(100% - 18px) calc(0.7em + 2px),
+      calc(100% - 13px) calc(0.7em + 2px),
+      calc(100% - 2.5em) 0.2em;
+    background-size:
+      5px 5px,
+      5px 5px,
+      1px 1.5em;
+    background-repeat: no-repeat;
+  }
+  
+select:focus{
+    background-image:
+      linear-gradient(45deg, #2ECC71 50%, transparent 50%),
+      linear-gradient(135deg, transparent 50%, #2ECC71 50%),
+      linear-gradient(to right, #ccc, #ccc);
+    background-position:
+      calc(100% - 13px) calc(0.7em + 2px),
+      calc(100% - 18px) calc(0.7em + 2px),
+      calc(100% - 2.5em) 0.2em;
+    background-size:
+      5px 5px,
+      5px 5px,
+      1px 1.5em;
+    background-repeat: no-repeat;
+    border-color: green;
+    outline: 0;
+}
+
+/*iPhone specific arrows*/
+@supports (-webkit-overflow-scrolling: touch) {
+    select{
+        background-position:
+          calc(100% - 15px) calc(0.7em + 2px),
+          calc(100% - 10px) calc(0.7em + 2px),
+          calc(100% - 2.5em) 0.3em;
+      }
+      
+    select:focus{
+        background-position:
+          calc(100% - 10px) calc(0.7em + 2px),
+          calc(100% - 15px) calc(0.7em + 2px),
+          calc(100% - 2.5em) 0.3em;
+    }  
+  }
+
+
 h1{
 	color: #E8D0B0;
 	text-transform: uppercase;
@@ -33,30 +92,47 @@ h3{
     overflow: auto;
 }
 
+/*Color for text in Results*/
+.results{
+    color: #E8D0B0;
+}
+
+/*Buttons further from tables*/
+.results center{
+    margin-top: 20px;
+}
+
+/*Result table border*/
+.results table, .results th{
+    border: 2px solid rgb(36, 36, 36);
+    border-collapse: collapse;
+}
+
+/*Odd table rows diff bg*/
+.results tr:nth-child(odd) {background: rgba(100, 67, 44, 0.932)}
+
 /*--Containers--*/
-.container{
-	width: 300px;
-	padding: 40px;
-	position: absolute;
-	top: 10%;
-	left: 50%;
-	transform: translate(-50%,0);
-	background: rgba(75, 54, 39, 0.932);
+.container, .containerMix, .containerAdmin{
+    padding: 40px;
+    position: absolute;
+    background: rgba(75, 54, 39, 0.932);
     text-align: center;
     box-shadow: 10px 20px 60px;
 }
 
+.container, .containerAdmin{
+	width: 300px;
+	top: 10%;
+    left: 50%;
+    transform: translate(-50%,0);
+}
+
 /*Container for MIX section*/
 .containerMix{
-	width: auto;
-	padding: 40px;
-	position: absolute;
+    width: auto;
 	top: 40%;
 	left: 50%;
 	transform: translate(-50%,-50%);
-	background: rgba(75, 54, 39, 0.932);
-    text-align: center;
-    box-shadow: 10px 20px 60px;
 }
 
 /*--Buttons and Forms--*/
@@ -146,7 +222,7 @@ center .btn_Danger, .btn_Success{
     left: 50%;
     top: 55%;
     transform: translate(-50%,-50%);
-    background-color: #532605;
+    background-color: #4b2e19;
     color: white;
 }
 
@@ -158,14 +234,14 @@ center .btn_Danger, .btn_Success{
     left: 50%;
     top: 60%;
     transform: translate(-50%,-50%);
-    background-color: #532605;
+    background-color: #4b2e19;
 }
 
 .perfumeName{
     display: block;
     margin-top: 10px;
     margin-bottom: 10px;
-    background-color: #532605;
+    background-color: #4b2e19;
     color: white;
 }
 
@@ -231,18 +307,11 @@ only screen and (max-width: 760px),
 (min-device-width: 768px) and (max-device-width: 1024px) and (orientation:portrait){
     /*Responsive tables*/
 	/* Force table to not be like tables anymore */
-    .containerMix table, thead, tbody, th, td, tr{ 
+    .containerMix table, .containerMix thead, .containerMix tbody, .containerMix th, .containerMix td, .containerMix tr{ 
         display: block;
 	} 
-    .form-groupAdmin table, thead, tbody, th, td, tr{ 
+    .containerMix table, .containerMix thead, .containerMix tbody, .containerMix th, .containerMix td, .containerMix tr{ 
 		display: block; 
-	}
-	
-	/* Hide table headers (but not display: none;, for accessibility) */
-	.containerMix thead .containerMix tr, .form-groupAdmin thead .form-groupAdmin tr{ 
-		position: absolute;
-		top: -9999px;
-		left: -9999px;
 	}
 	
 	.containerMix td,.form-groupAdmin td{ 
@@ -263,17 +332,19 @@ only screen and (max-width: 760px),
 		white-space: nowrap;
     }
     /*Responsive table with the result images*/
-    .containerMix tr{
+    .containerMix tr, .container tr{
         max-height: 500px;
+
     }
     
     .containerMix table, .containerMix tr{
         display: block;
-        overflow: auto;
     }
 
     /*Container responsive on mobile*/
     .containerMix{
+        max-height: 500px;
+        overflow: auto;
         position: absolute;
         top: 50%;
         left: 50%;
@@ -305,7 +376,7 @@ only screen and (max-width: 760px),
     }
 
     /*Responsive containers*/
-    .container{
+    .container, .containerAdmin{
         height: auto;
         width: 250px;
         padding: 40px;
@@ -316,15 +387,15 @@ only screen and (max-width: 760px),
     }
 
     .containerMix{
-        height: auto;
         position: absolute;
 	    top: 5%;
 	    left: 50%;
         transform: translate(-50%,0);
     }
 
-    #body{
-        min-height: 100% !important;
+    .containerAdmin{
+        max-height: 650px !important;
+        overflow: auto;
     }
     /*--Results--*/
     /*Buttons in results section responsive on mobile*/
