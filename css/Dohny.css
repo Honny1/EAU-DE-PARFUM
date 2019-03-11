@@ -9,7 +9,7 @@ html{
     -o-background-size: cover;
     background-size: cover;
     height: 100%;
-    overflow: hidden;
+    overflow: auto;
 }
 
 /*Apple buttons fix*/
@@ -70,7 +70,6 @@ select:focus{
     }  
   }
 
-
 h1{
 	color: #E8D0B0;
 	text-transform: uppercase;
@@ -86,10 +85,8 @@ h3{
 .results #app{
     background-color: rgba(75, 54, 39, 0.973);
     padding: 30px;
-    margin-bottom: 30px;
-    max-height: 850px;
+    margin-bottom: 80px;
     display: block;
-    overflow: auto;
 }
 
 /*Color for text in Results*/
@@ -118,6 +115,8 @@ h3{
     background: rgba(75, 54, 39, 0.932);
     text-align: center;
     box-shadow: 10px 20px 60px;
+    display: block;
+    margin-bottom: 80px;
 }
 
 .container, .containerAdmin{
@@ -127,7 +126,7 @@ h3{
     transform: translate(-50%,0);
 }
 
-/*Container for MIX section*/
+/*Container for MIX and Results section*/
 .containerMix{
     width: auto;
 	top: 40%;
@@ -303,8 +302,8 @@ select{
 /*--Responsivnes--*/
 /*Responsivnes for portrait mode*/
 @media 
-only screen and (max-width: 760px),
-(min-device-width: 768px) and (max-device-width: 1024px) and (orientation:portrait){
+only screen and (max-width: 760px) and (orientation:portrait),
+(min-device-width: 768px) and (orientation:portrait) and (max-device-width: 1024px) and (orientation:portrait){
     /*Responsive tables*/
 	/* Force table to not be like tables anymore */
     .containerMix table, .containerMix thead, .containerMix tbody, .containerMix th, .containerMix td, .containerMix tr{ 
@@ -344,7 +343,6 @@ only screen and (max-width: 760px),
     /*Container responsive on mobile*/
     .containerMix{
         max-height: 500px;
-        overflow: auto;
         position: absolute;
         top: 50%;
         left: 50%;
@@ -378,6 +376,7 @@ only screen and (max-width: 760px),
     /*Responsive containers*/
     .container, .containerAdmin{
         height: auto;
+        margin-bottom: 80px;
         width: 250px;
         padding: 40px;
 	    position: absolute;
@@ -387,6 +386,9 @@ only screen and (max-width: 760px),
     }
 
     .containerMix{
+        max-height: 550px;
+        margin-bottom: 80px;
+        overflow: auto;
         position: absolute;
 	    top: 5%;
 	    left: 50%;
@@ -395,7 +397,6 @@ only screen and (max-width: 760px),
 
     .containerAdmin{
         max-height: 450px;
-        overflow: auto;
     }
     /*--Results--*/
     /*Buttons in results section responsive on mobile*/
@@ -407,7 +408,6 @@ only screen and (max-width: 760px),
     .resultPage{
         max-height: 650px;
         display: block;
-        overflow: auto;
     }
     th{
         padding: 2px;
@@ -418,6 +418,12 @@ only screen and (max-width: 760px),
 }
 /* Landscape styles here */
 @media screen and (orientation:landscape){
+    .containerMix{
+        max-width: 600px;
+        margin: 20px 0px;
+        overflow: auto;
+    }
+
     th {
         font-weight: bold;
         text-align: -internal-center;
@@ -426,7 +432,6 @@ only screen and (max-width: 760px),
     td, th {        
         display: table-cell;
         vertical-align: inherit;
-        padding: 10px;
         border-color: grey;
     }
 
