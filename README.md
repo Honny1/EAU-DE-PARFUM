@@ -1,21 +1,22 @@
 # EAU-DE-PARFUM
 Application for faster game evaluation.
 
-#Production run on WINDOWS
+## Production run on WINDOWS
+
 **WARNING**
 > before run unzip mongodb.zip!
 ```bash
 run.cmd
 ```
-#Developer run on linux/win
+## Developer run on linux/win
 ```bash
 npx nodemon (need install node.js and mongodb server)
 ```
-#Budil app window/linux/macos (need mongodb server on localhost)
+## Budil app window/linux/macos (need mongodb server on localhost)
 ```bash
 npx pkg index.js
 ```
-#Setup for Armbian 
+## Setup for Armbian 
 ```bash
 #INSTALL MONGODB 
 
