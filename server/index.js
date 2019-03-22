@@ -175,7 +175,8 @@ function returnData(req, res) {
 
 		inputIngredients.forEach(function (inputIngredient, index) {
 			if (originalIngredients[index] == inputIngredient) {
-				OutputResult[index] = "critical-hit";
+                OutputResult[index] = "critical-hit";
+                // najdi duplicity v inputu 
 			}
 		});
 
@@ -376,8 +377,9 @@ function teamInfo(req, res) {
 				res.write(html);
 				res.write('<h2 style="font-weight: bold;">Team: ' + team.name + '</h2>');
 				team.attempts.reverse();
-				team.attempts.forEach(function (item, index) {
-					res.write('</br><h4 style="font-weight: bold;">' + item.parfumName + ': ' + item.try + '</h4>');
+                team.attempts.forEach(function (item, index) {
+                    var parfum = data.parfums.find(parfum => parfum.Name === item.parfumName);
+                    res.write('</br><h4 style="font-weight: bold;">' + parfum.ID + " " + item.parfumName + ': ' + item.try + '</h4>');
 					res.write('<table style="width:100%;">');
 					res.write('<tr>');
 					res.write('<th>Right solution: </th>');
