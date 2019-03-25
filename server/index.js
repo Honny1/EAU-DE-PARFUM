@@ -42,7 +42,6 @@ function returnData(req, res) {
 	if (req.query.data == 'next') {
 		let type;
 
-		//todo add try 
 		//console.log(req.query.parfum);
 		data.parfums.forEach(function (parfum) {
 			if (parfum.Name == req.query.parfum) {
@@ -161,6 +160,7 @@ function returnData(req, res) {
 
 		//evaluation of input ingredients
 		let OutputResult = [];
+		let maxIngredients = inputIngredients.length;
 		inputIngredients.forEach(function (item, index) {
 			OutputResult[index] = "miss";
 		});
@@ -175,8 +175,14 @@ function returnData(req, res) {
 
 		inputIngredients.forEach(function (inputIngredient, index) {
 			if (originalIngredients[index] == inputIngredient) {
-                OutputResult[index] = "critical-hit";
-                // najdi duplicity v inputu 
+				OutputResult[index] = "critical-hit";
+				inputIngredients.forEach(function (inputIngredient1, index1) {
+					if (inputIngredient == inputIngredient1 && originalIngredients[index1] != inputIngredient) {
+						if (maxIngredients > index + index1) {
+							OutputResult[index + index1] = "miss";
+						}
+					}
+				});
 			}
 		});
 
@@ -377,9 +383,9 @@ function teamInfo(req, res) {
 				res.write(html);
 				res.write('<h2 style="font-weight: bold;">Team: ' + team.name + '</h2>');
 				team.attempts.reverse();
-                team.attempts.forEach(function (item, index) {
-                    var parfum = data.parfums.find(parfum => parfum.Name === item.parfumName);
-                    res.write('</br><h4 style="font-weight: bold;">' + parfum.ID + " " + item.parfumName + ': ' + item.try + '</h4>');
+				team.attempts.forEach(function (item, index) {
+					var parfum = data.parfums.find(parfum => parfum.Name === item.parfumName);
+					res.write('</br><h4 style="font-weight: bold;">' + parfum.ID + " " + item.parfumName + ': ' + item.try + '</h4>');
 					res.write('<table style="width:100%;">');
 					res.write('<tr>');
 					res.write('<th>Right solution: </th>');
