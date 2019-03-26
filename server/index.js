@@ -57,7 +57,7 @@ function returnData(req, res) {
 					dbo.collection("teamAttempts").find({ teamName: req.query.teamName, parfumName: req.query.parfum }).toArray(function (err, result) {
 						if (err) throw err;
 						db.close();
-						res.write('<h3>' + result.length + ' z 7</h3>');
+						res.write('<h3 id = "H3" parfumType="0" data-color="' + result.length + '">' + result.length + ' z 7</h3>');
 						fs.readFile('./html/parfumFormTop.html', function (err, html) {
 							if (err) throw err;
 							res.write(html);
@@ -81,7 +81,7 @@ function returnData(req, res) {
 					dbo.collection("teamAttempts").find({ teamName: req.query.teamName, parfumName: req.query.parfum }).toArray(function (err, result) {
 						if (err) throw err;
 						db.close();
-						res.write('<h3>' + result.length + ' z 8</h3>');
+						res.write('<h3 id = "H3" parfumType="1" data-color="' + result.length + '">' + result.length + ' z 8</h3>');
 						fs.readFile('./html/parfumFormTop.html', function (err, html) {
 							if (err) throw err;
 							res.write(html);
@@ -106,7 +106,7 @@ function returnData(req, res) {
 					dbo.collection("teamAttempts").find({ teamName: req.query.teamName, parfumName: req.query.parfum }).toArray(function (err, result) {
 						if (err) throw err;
 						db.close();
-						res.write('<h3>' + result.length + ' z 9</h3>');
+						res.write('<h3 id = "H3" parfumType="3" data-color="' + result.length + '">' + result.length + ' z 9</h3>');
 						fs.readFile('./html/parfumFormTop.html', function (err, html) {
 							if (err) throw err;
 							res.write(html);
@@ -173,10 +173,27 @@ function returnData(req, res) {
 			});
 		});
 
+		var count = 0;
+		for (var i = 0; i < inputIngredients.length; i++) {
+			for (var j = 0; j < inputIngredients.length; j++) {
+				if (inputIngredients[i] == inputIngredients[j]) {
+					count++;
+				}
+			}
+		}
+
 		inputIngredients.forEach(function (inputIngredient, index) {
 			if (originalIngredients[index] == inputIngredient) {
 				inputIngredients.forEach(function (inputIngredient1, index1) {
-					if (inputIngredient == inputIngredient1) {
+
+					let x = 0;
+					originalIngredients.forEach(function (item, index) {
+						if (item == inputIngredient) {
+							x++;
+						}
+					});
+
+					if (originalIngredients[index1] != inputIngredient1 && inputIngredient == inputIngredient1 && (x <= 1 || count / inputIngredients.length == inputIngredients.length)) {
 						OutputResult[index1] = "miss";
 					}
 				});
