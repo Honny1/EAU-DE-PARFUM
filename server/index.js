@@ -34,7 +34,7 @@ function renderResult(result, res) {
 				break;
 		}
 	}
-	res.write('</tr></table><br><center><input type="submit" onclick="location.reload();" name="" value="AGAIN" class="btn_Danger"><input type="submit" onclick="getHome();" name="" value="BACK TO HOME" class="btn_Success">');
+	res.write('</tr></table><br><center><input type="submit" onclick="location.reload();" name="" value="Znovu" class="btn_Danger"><input type="submit" onclick="getHome();" name="" value="Domů" class="btn_Success">');
 	res.end();
 }
 
@@ -258,13 +258,13 @@ function returnMixPage(req, res) {
 					teams.push(item.name);
 				});
 				db.close();
-				res.write('<label for="sel1">Team</label><select id="teamName" class="teamName" size="1" required><option value="" disabled selected>Choose team</option>');
+				res.write('<label for="sel1">Tým</label><select id="teamName" class="teamName" size="1" required><option value="" disabled selected>Vyber tým</option>');
 				teams.forEach(function (item) {
 					res.write('<option value="' + item + '">' + item + '</option>');
 				});
 				res.write('</select>');
 
-				res.write('<label for="sel1" class="labelPerfume">Perfume</label><select id="parfumName" class="perfumeName" size="1" required><option value="" disabled selected>Choose Perfume</option>');
+				res.write('<label for="sel1" class="labelPerfume">Parfém</label><select id="parfumName" class="perfumeName" size="1" required><option value="" disabled selected>Vyber parfém</option>');
 				data.parfums.forEach(function (item) {
 					switch (item.Type) {
 						case "EAU DE COLOGNE":
@@ -323,7 +323,7 @@ function returnAdminPage(req, res) {
 				//console.log(result.length);
 				db.close();
 
-				res.write('<input class="form_teamName" name="teamName" id="teamName" type="text" placeholder="Team Name" value="team' + result.length + '">');
+				res.write('<input class="form_teamName" name="teamName" id="teamName" type="text" placeholder="Jméno týmu" value="team' + result.length + '">');
 				res.write('</th><th><center><input class="btn_Add" type="submit" value="ADD"></center></div></th></tr></table>');
 
 				MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
@@ -396,30 +396,30 @@ function teamInfo(req, res) {
 			fs.readFile('./html/teamTop.html', function (err, html) {
 				if (err) throw err;
 				res.write(html);
-				res.write('<h2 style="font-weight: bold;">Team: ' + team.name + '</h2>');
+				res.write('<h2 style="font-weight: bold;">Tým: ' + team.name + '</h2>');
 				team.attempts.reverse();
 				team.attempts.forEach(function (item, index) {
 					var parfum = data.parfums.find(parfum => parfum.Name === item.parfumName);
 					res.write('</br><h4 style="font-weight: bold;">' + parfum.ID + " " + item.parfumName + ': ' + item.try + '</h4>');
 					res.write('<table style="width:100%;">');
 					res.write('<tr>');
-					res.write('<th>Right solution: </th>');
+					res.write('<th>Správné řešení: </th>');
 					item.originalIngredients.forEach(function (item, index) {
 						res.write('<th>' + item + '</th>');
 					});
 					res.write('</tr><tr>');
-					res.write('<th>Team solution: </th>');
+					res.write('<th>Řešení týmu: </th>');
 					item.inputIngredients.forEach(function (item, index) {
 						res.write('<th>' + item + '</th>');
 					});
 					res.write('</tr><tr>');
-					res.write('<th>Output result: </th>');
+					res.write('<th>Výsledek: </th>');
 					item.outputResult.forEach(function (item, index) {
 						res.write('<th>' + item + '</th>');
 					});
 					res.write('</tr></table></br>');
 				});
-				res.write('<center><a onclick="del(\'' + team.name + '\')" class="btn_Danger">REMOVE TEAM</a>');
+				res.write('<center><a onclick="del(\'' + team.name + '\')" class="btn_Danger">SMAZAT TÝM</a>');
 				fs.readFile('./html/teamEnd.html', function (err, html) {
 					if (err) throw err;
 					res.write(html);
@@ -442,7 +442,7 @@ function reset(req, res) {
 		var dbo = db.db("parfum");
 		dbo.collection("teams").deleteMany(myquery, function (err, obj) {
 			if (err) throw err;
-			res.write(obj.result.n + " team(s) deleted\n");
+			res.write(obj.result.n + " týmy smazány\n");
 			db.close();
 			MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
 				if (err) throw err;
@@ -450,7 +450,7 @@ function reset(req, res) {
 				var dbo = db.db("parfum");
 				dbo.collection("teamAttempts").deleteMany(myquery, function (err, obj) {
 					if (err) throw err;
-					res.write(obj.result.n + " attempt(s) deleted");
+					res.write(obj.result.n + " pokusy smazány");
 					db.close();
 					res.end();
 				});
