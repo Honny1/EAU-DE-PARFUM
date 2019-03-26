@@ -175,14 +175,12 @@ function returnData(req, res) {
 
 		inputIngredients.forEach(function (inputIngredient, index) {
 			if (originalIngredients[index] == inputIngredient) {
-				OutputResult[index] = "critical-hit";
 				inputIngredients.forEach(function (inputIngredient1, index1) {
-					if (inputIngredient == inputIngredient1 && originalIngredients[index1] != inputIngredient) {
-						if (maxIngredients > index + index1) {
-							OutputResult[index + index1] = "miss";
-						}
+					if (inputIngredient == inputIngredient1) {
+						OutputResult[index1] = "miss";
 					}
 				});
+				OutputResult[index] = "critical-hit";
 			}
 		});
 
