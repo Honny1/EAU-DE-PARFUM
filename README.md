@@ -50,5 +50,3 @@ sudo service EAU-DE-PARFUM status
 sudo service EAU-DE-PARFUM enable
 sudo reboot
 ```
-## CMD to EXE
-> http://www.f2ko.de/en/ob2e.php
