@@ -34,7 +34,9 @@ function renderResult(result, res) {
 				break;
 		}
 	}
-	res.write('</tr></table><br><center><input type="submit" onclick="location.reload();" name="" value="Znovu" class="btn_Danger"><input type="submit" onclick="getHome();" name="" value="Domů" class="btn_Success">');
+	res.write('</tr></table><br><center>');
+	res.write('<input type="submit" onclick="location.reload();" name="" value="Znovu" class="btn_Danger">');
+	res.write('<input type="submit" onclick="getHome();" name="" value="Domů" class="btn_Success">');
 	res.end();
 }
 
@@ -159,47 +161,47 @@ function returnData(req, res) {
 		}
 
 		//evaluation of input ingredients
-		let OutputResult = [];
-		let maxIngredients = inputIngredients.length;
+		let outputResult = [];
+		//let maxIngredients = inputIngredients.length;
 		inputIngredients.forEach(function (item, index) {
-			OutputResult[index] = "miss";
+			outputResult[index] = "miss";
 		});
 
-		originalIngredients.forEach(function (originalIngredient, index) {
+		originalIngredients.forEach(function (originalIngredient) {
 			inputIngredients.forEach(function (inputIngredient, index) {
 				if (originalIngredient == inputIngredient) {
-					OutputResult[index] = "hit";
+					outputResult[index] = "hit";
 				}
 			});
 		});
 
-		var count = 0;
-		for (var i = 0; i < inputIngredients.length; i++) {
-			for (var j = 0; j < inputIngredients.length; j++) {
-				if (inputIngredients[i] == inputIngredients[j]) {
-					count++;
-				}
-			}
-		}
 
 		inputIngredients.forEach(function (inputIngredient, index) {
 			if (originalIngredients[index] == inputIngredient) {
-				inputIngredients.forEach(function (inputIngredient1, index1) {
-
-					let x = 0;
-					originalIngredients.forEach(function (item, index) {
-						if (item == inputIngredient) {
-							x++;
-						}
-					});
-
-					if (originalIngredients[index1] != inputIngredient1 && inputIngredient == inputIngredient1 && (x <= 1 || count / inputIngredients.length == inputIngredients.length)) {
-						OutputResult[index1] = "miss";
-					}
-				});
-				OutputResult[index] = "critical-hit";
+				outputResult[index] = "critical-hit";
 			}
 		});
+
+
+		const indexOfAll = (arr, val) => arr.reduce((acc, el, i) => (el === val ? [...acc, i] : acc), []);
+
+		outputResult.forEach(function (result, indexOfResult) {
+			if (result == "hit") {
+				if (
+					indexOfAll(inputIngredients, inputIngredients[indexOfResult]).length >
+					indexOfAll(originalIngredients, inputIngredients[indexOfResult]).length
+				) {
+
+					indexOfAll(inputIngredients, inputIngredients[indexOfResult]).forEach(function (ingredient) {
+						if (indexOfAll(originalIngredients, inputIngredients[indexOfResult]).includes(ingredient)) {
+							outputResult[indexOfResult] = "miss";
+						}
+					});
+				}
+			}
+		});
+
+		// end eval
 
 		MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
 			if (err) throw err;
@@ -213,7 +215,7 @@ function returnData(req, res) {
 					parfumName: req.query.parfum,
 					originalIngredients: originalIngredients,
 					inputIngredients: inputIngredients,
-					outputResult: OutputResult
+					outputResult: outputResult
 				};
 
 				MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
@@ -229,7 +231,7 @@ function returnData(req, res) {
 											console.log('Right solution: ' + originalIngredients);
 											console.log('Team solution: ' + inputIngredients);
 											console.log('Result: ');
-											console.log(OutputResult);
+											console.log(outputResult);
 											*/
 						db.close();
 					});
@@ -237,7 +239,7 @@ function returnData(req, res) {
 			});
 		});
 
-		renderResult(OutputResult, res);
+		renderResult(outputResult, res);
 	}
 }
 
