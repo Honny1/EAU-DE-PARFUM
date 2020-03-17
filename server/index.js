@@ -51,84 +51,52 @@ function returnData(req, res) {
 			}
 		});
 		res.writeHeader(200, { "Content-Type": "text/html" });
+		var typeOfParfum = NaN;
+		var attempts = NaN;
 		switch (type) {
 			case "EAU DE COLOGNE":
-				MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
-					if (err) throw err;
-					var dbo = db.db("parfum");
-					dbo.collection("teamAttempts").find({ teamName: req.query.teamName, parfumName: req.query.parfum }).toArray(function (err, result) {
-						if (err) throw err;
-						db.close();
-						res.write('<h3 id = "H3" parfumType="0" data-color="' + result.length + '">' + (result.length + 1) + ' z 8</h3>');
-						fs.readFile('./html/parfumFormTop.html', function (err, html) {
-							if (err) throw err;
-							res.write(html);
-							fs.readFile('./html/parfumFormType1.html', function (err, html) {
-								if (err) throw err;
-								res.write(html);
-								fs.readFile('./html/parfumFormEnd.html', function (err, html) {
-									if (err) throw err;
-									res.write(html);
-									res.end();
-								});
-							});
-						});
-					});
-				});
+				typeOfParfum = 0;
+				attempts = 8;
 				break;
 			case "EAU DE TOILETTE":
-				MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
-					if (err) throw err;
-					var dbo = db.db("parfum");
-					dbo.collection("teamAttempts").find({ teamName: req.query.teamName, parfumName: req.query.parfum }).toArray(function (err, result) {
-						if (err) throw err;
-						db.close();
-						res.write('<h3 id = "H3" parfumType="1" data-color="' + result.length + '">' + (result.length + 1) + ' z 9</h3>');
-						fs.readFile('./html/parfumFormTop.html', function (err, html) {
-							if (err) throw err;
-							res.write(html);
-							fs.readFile('./html/parfumFormType2.html', function (err, html) {
-								if (err) throw err;
-								res.write(html);
-								fs.readFile('./html/parfumFormEnd.html', function (err, html) {
-									if (err) throw err;
-									res.write(html);
-									res.end();
-								});
-							});
-						});
-					});
-				});
-
+				typeOfParfum = 1;
+				attempts = 9;
 				break;
 			case "EAU DE PARFUM":
-				MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
-					if (err) throw err;
-					var dbo = db.db("parfum");
-					dbo.collection("teamAttempts").find({ teamName: req.query.teamName, parfumName: req.query.parfum }).toArray(function (err, result) {
-						if (err) throw err;
-						db.close();
-						res.write('<h3 id = "H3" parfumType="3" data-color="' + result.length + '">' + (result.length + 1) + ' z 10</h3>');
-						fs.readFile('./html/parfumFormTop.html', function (err, html) {
-							if (err) throw err;
-							res.write(html);
-							fs.readFile('./html/parfumFormType3.html', function (err, html) {
-								if (err) throw err;
-								res.write(html);
-								fs.readFile('./html/parfumFormEnd.html', function (err, html) {
-									if (err) throw err;
-									res.write(html);
-									res.end();
-								});
-							});
-						});
-					});
-				});
+				typeOfParfum = 2;
+				attempts = 10;
 				break;
 			default:
 				res.send("error");
 				break;
 		}
+		MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
+			if (err) throw err;
+			var dbo = db.db("parfum");
+			dbo.collection("teamAttempts").find({
+				teamName: req.query.teamName,
+				parfumName: req.query.parfum
+			}).toArray(function (err, result) {
+				if (err) throw err;
+				db.close();
+				res.write('<h3 id = "H3" parfumType="' +
+					typeOfParfum + '" data-color="' + result.length + '">');
+				res.write((result.length + 1) + ' z ' + attempts + '</h3>');
+
+				fs.readFile('./html/parfumFormTop.html', function (err, html) {
+					if (err) throw err;
+					res.write(html);
+					fs.readFile('./html/parfumFormType' +
+						typeOfParfum + '.html', function (err, html) {
+							if (err) throw err;
+							res.write(html);
+							var src = './html/parfumFormEnd.html';
+							readAndWriteToResponseFile(res, src);
+						});
+				});
+
+			});
+		});
 	} else if (req.query.data == 'result') {
 		//load original parfum
 		let parfumOriginal;
@@ -182,21 +150,18 @@ function returnData(req, res) {
 			}
 		});
 
-
 		const indexOfAll = (arr, val) => arr.reduce((acc, el, i) => (el === val ? [...acc, i] : acc), []);
 
 		outputResult.forEach(function (result, indexOfResult) {
 			if (result == "hit") {
-				if (
-					indexOfAll(inputIngredients, inputIngredients[indexOfResult]).length >
-					indexOfAll(originalIngredients, inputIngredients[indexOfResult]).length
-				) {
-
-					indexOfAll(inputIngredients, inputIngredients[indexOfResult]).forEach(function (ingredient) {
-						if (indexOfAll(originalIngredients, inputIngredients[indexOfResult]).includes(ingredient)) {
-							outputResult[indexOfResult] = "miss";
-						}
-					});
+				if (indexOfAll(inputIngredients, inputIngredients[indexOfResult]).length >
+					indexOfAll(originalIngredients, inputIngredients[indexOfResult]).length) {
+					indexOfAll(inputIngredients, inputIngredients[indexOfResult]).forEach(
+						function (ingredient) {
+							if (indexOfAll(originalIngredients, inputIngredients[indexOfResult]).includes(ingredient)) {
+								outputResult[indexOfResult] = "miss";
+							}
+						});
 				}
 			}
 		});
@@ -206,7 +171,10 @@ function returnData(req, res) {
 		MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
 			if (err) throw err;
 			var dbo = db.db("parfum");
-			dbo.collection("teamAttempts").find({ teamName: req.query.teamName, parfumName: req.query.parfum }).toArray(function (err, result) {
+			dbo.collection("teamAttempts").find({
+				teamName: req.query.teamName,
+				parfumName: req.query.parfum
+			}).toArray(function (err, result) {
 				if (err) throw err;
 				db.close();
 				var teamAttempt = {
@@ -223,16 +191,6 @@ function returnData(req, res) {
 					var dbo = db.db("parfum");
 					dbo.collection("teamAttempts").insertOne(teamAttempt, function (err, res) {
 						if (err) throw err;
-						/*
-											console.log("\nadded teamAttempt");
-											console.log('Parfum name: ' + req.query.parfum);
-											console.log('Team name: ' + req.query.teamName);
-											console.log('Try: ' + result.length);
-											console.log('Right solution: ' + originalIngredients);
-											console.log('Team solution: ' + inputIngredients);
-											console.log('Result: ');
-											console.log(outputResult);
-											*/
 						db.close();
 					});
 				});
@@ -260,23 +218,30 @@ function returnMixPage(req, res) {
 					teams.push(item.name);
 				});
 				db.close();
-				res.write('<label for="sel1">Tým</label><select id="teamName" class="teamName" size="1" required><option value="" disabled selected>Vyber tým</option>');
+				res.write('<label for="sel1">Tým</label>');
+				res.write('<select id="teamName" class="teamName" size="1" required>');
+				res.write('<option value="" disabled selected>Vyber tým</option>');
 				teams.forEach(function (item) {
 					res.write('<option value="' + item + '">' + item + '</option>');
 				});
 				res.write('</select>');
 
-				res.write('<label for="sel1" class="labelPerfume">Parfém</label><select id="parfumName" class="perfumeName" size="1" required><option value="" disabled selected>Vyber parfém</option>');
+				res.write('<label for="sel1" class="labelPerfume">Parfém</label>');
+				res.write('<select id="parfumName" class="perfumeName" size="1" required>');
+				res.write('<option value="" disabled selected>Vyber parfém</option>');
 				data.parfums.forEach(function (item) {
 					switch (item.Type) {
 						case "EAU DE COLOGNE":
-							res.write('<option class="text_WhiteDanger" value="' + item.Name + '">' + item.ID + ' ' + item.Name + '</option>');
+							res.write('<option class="text_WhiteDanger" value="' +
+								item.Name + '">' + item.ID + ' ' + item.Name + '</option>');
 							break;
 						case "EAU DE TOILETTE":
-							res.write('<option class="text_WhiteWarning" value="' + item.Name + '">' + item.ID + ' ' + item.Name + '</option>');
+							res.write('<option class="text_WhiteWarning" value="' +
+								item.Name + '">' + item.ID + ' ' + item.Name + '</option>');
 							break;
 						case "EAU DE PARFUM":
-							res.write('<option class="text_WhiteSuccess" value="' + item.Name + '">' + item.ID + ' ' + item.Name + '</option>');
+							res.write('<option class="text_WhiteSuccess" value="' +
+								item.Name + '">' + item.ID + ' ' + item.Name + '</option>');
 							break;
 						default:
 							res.write("error");
@@ -284,11 +249,8 @@ function returnMixPage(req, res) {
 					}
 				});
 				res.write('</select>');
-				fs.readFile('./html/mixEnd.html', function (err, html) {
-					if (err) throw err;
-					res.write(html);
-					res.end();
-				});
+				var src = './html/mixEnd.html';
+				readAndWriteToResponseFile(res, src);
 			});
 		});
 	});
@@ -325,8 +287,10 @@ function returnAdminPage(req, res) {
 				//console.log(result.length);
 				db.close();
 
-				res.write('<input class="form_teamName" name="teamName" id="teamName" type="text" placeholder="Jméno týmu" value="team' + result.length + '">');
-				res.write('</th><th><center><input class="btn_Add" type="submit" value="ADD"></center></div></th></tr></table>');
+				res.write('<input class="form_teamName" name="teamName" id="teamName" ');
+				res.write('type="text" placeholder="Jméno týmu" value="team' + result.length + '">');
+				res.write('</th><th><center><input class="btn_Add" type="submit" value="ADD">');
+				res.write('</center></div></th></tr></table>');
 
 				MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
 					res.write('</form></div>');
@@ -335,18 +299,14 @@ function returnAdminPage(req, res) {
 					dbo.collection("teams").find().toArray(function (err, result) {
 						if (err) throw err;
 						result.forEach(function (item) {
-							res.write('<a href="/teamInfo?data=' + item.name + '"class="btn_teamName">' + item.name + '</a></br>');
+							res.write('<a href="/teamInfo?data=' +
+								item.name + '"class="btn_teamName">' + item.name + '</a></br>');
 						});
 
 						db.close();
 
-
-						fs.readFile('./html/adminEnd.html', function (err, html) {
-							if (err) throw err;
-							res.write(html);
-							res.end();
-						});
-
+						var src = './html/adminEnd.html';
+						readAndWriteToResponseFile(res, src);
 					});
 				});
 			});
@@ -402,7 +362,8 @@ function teamInfo(req, res) {
 				team.attempts.reverse();
 				team.attempts.forEach(function (item, index) {
 					var parfum = data.parfums.find(parfum => parfum.Name === item.parfumName);
-					res.write('</br><h4 style="font-weight: bold;">' + parfum.ID + " " + item.parfumName + ': ' + item.try + '</h4>');
+					res.write('</br><h4 style="font-weight: bold;">' + parfum.ID +
+						" " + item.parfumName + ': ' + item.try + '</h4>');
 					res.write('<table style="width:100%;">');
 					res.write('<tr>');
 					res.write('<th>Správné řešení: </th>');
@@ -421,19 +382,17 @@ function teamInfo(req, res) {
 					});
 					res.write('</tr></table></br>');
 				});
-				res.write('<center><a onclick="del(\'' + team.name + '\')" class="btn_Danger">SMAZAT TÝM</a>');
-				fs.readFile('./html/teamEnd.html', function (err, html) {
-					if (err) throw err;
-					res.write(html);
-					res.end();
-				});
+				res.write('<center><a onclick="del(\'' +
+					team.name + '\')" class="btn_Danger">SMAZAT TÝM</a>');
+
+				var src = './html/teamEnd.html';
+				readAndWriteToResponseFile(res, src);
 			});
 		});
 	});
 }
 
 function reset(req, res) {
-
 	let willRemove = req.query.teamName;
 	if (req.query.teamName == 'all') {
 		willRemove = / */;
@@ -444,57 +403,54 @@ function reset(req, res) {
 		var dbo = db.db("parfum");
 		dbo.collection("teams").deleteMany(myquery, function (err, obj) {
 			if (err) throw err;
-			res.write(obj.result.n + " týmy smazány\n");
 			db.close();
-			MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
-				if (err) throw err;
-				var myquery = { teamName: willRemove };
-				var dbo = db.db("parfum");
-				dbo.collection("teamAttempts").deleteMany(myquery, function (err, obj) {
-					if (err) throw err;
-					res.write(obj.result.n + " pokusy smazány");
-					db.close();
-					res.end();
-				});
-			});
 		});
+	});
+	MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
+		if (err) throw err;
+		var myquery = { teamName: willRemove };
+		var dbo = db.db("parfum");
+		dbo.collection("teamAttempts").deleteMany(myquery, function (err, obj) {
+			if (err) throw err;
+
+			db.close();
+
+		});
+	});
+	res.write("Deleted!");
+	res.end();
+}
+
+function readAndWriteToResponseFile(res, src) {
+	fs.readFile(src, function (err, data) {
+		if (err) throw err;
+		res.write(data);
+		res.end();
 	});
 }
 
 function returnJs(req, res) {
-	fs.readFile('./js/scripts.js', function (err, javaScript) {
-		if (err) throw err;
-		res.writeHeader(200, { "Content-Type": "text/javascript" });
-		res.write(javaScript);
-		res.end();
-	});
+	var src = './js/scripts.js';
+	res.writeHeader(200, { "Content-Type": "text/javascript" });
+	readAndWriteToResponseFile(res, src);
 }
 
 function returnJquery(req, res) {
-	fs.readFile('./js/jquery.min.js', function (err, javaScript) {
-		if (err) throw err;
-		res.writeHeader(200, { "Content-Type": "text/javascript" });
-		res.write(javaScript);
-		res.end();
-	});
+	var src = './js/jquery.min.js';
+	res.writeHeader(200, { "Content-Type": "text/javascript" });
+	readAndWriteToResponseFile(res, src);
 }
 
 function home(req, res) {
-	fs.readFile('./html/index.html', function (err, html) {
-		if (err) throw err;
-		res.writeHeader(200, { "Content-Type": "text/html" });
-		res.write(html);
-		res.end();
-	});
+	var src = './html/index.html';
+	res.writeHeader(200, { "Content-Type": "text/html" });
+	readAndWriteToResponseFile(res, src);
 }
 
 function returnDohny(req, res) {
-	fs.readFile('./css/Dohny.css', function (err, css) {
-		if (err) throw err;
-		res.writeHeader(200, { "Content-Type": "text/css" });
-		res.write(css);
-		res.end();
-	});
+	var src = './css/Dohny.css';
+	res.writeHeader(200, { "Content-Type": "text/css" });
+	readAndWriteToResponseFile(res, src);
 }
 
 function returnBackground(req, res) {
