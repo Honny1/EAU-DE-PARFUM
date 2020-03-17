@@ -77,20 +77,20 @@ function del(inputTeam) {
 
 function color() {
     let type0 = {
-        '0-5': 'white',
-        '5-7': 'orange',
-        '7-100': 'red'
-    };
-
-    let type1 = {
-        '0-6': 'white',
+        '1-6': 'white',
         '6-8': 'orange',
         '8-100': 'red'
     };
-    let type2 = {
-        '0-7': 'white',
+
+    let type1 = {
+        '1-7': 'white',
         '7-9': 'orange',
         '9-100': 'red'
+    };
+    let type2 = {
+        '1-8': 'white',
+        '8-10': 'orange',
+        '10-100': 'red'
     };
     function between(x, min, max) {
         return x >= min && x <= max;

@@ -59,7 +59,7 @@ function returnData(req, res) {
 					dbo.collection("teamAttempts").find({ teamName: req.query.teamName, parfumName: req.query.parfum }).toArray(function (err, result) {
 						if (err) throw err;
 						db.close();
-						res.write('<h3 id = "H3" parfumType="0" data-color="' + result.length + '">' + result.length + ' z 7</h3>');
+						res.write('<h3 id = "H3" parfumType="0" data-color="' + result.length + '">' + (result.length + 1) + ' z 8</h3>');
 						fs.readFile('./html/parfumFormTop.html', function (err, html) {
 							if (err) throw err;
 							res.write(html);
@@ -83,7 +83,7 @@ function returnData(req, res) {
 					dbo.collection("teamAttempts").find({ teamName: req.query.teamName, parfumName: req.query.parfum }).toArray(function (err, result) {
 						if (err) throw err;
 						db.close();
-						res.write('<h3 id = "H3" parfumType="1" data-color="' + result.length + '">' + result.length + ' z 8</h3>');
+						res.write('<h3 id = "H3" parfumType="1" data-color="' + result.length + '">' + (result.length + 1) + ' z 9</h3>');
 						fs.readFile('./html/parfumFormTop.html', function (err, html) {
 							if (err) throw err;
 							res.write(html);
@@ -108,7 +108,7 @@ function returnData(req, res) {
 					dbo.collection("teamAttempts").find({ teamName: req.query.teamName, parfumName: req.query.parfum }).toArray(function (err, result) {
 						if (err) throw err;
 						db.close();
-						res.write('<h3 id = "H3" parfumType="3" data-color="' + result.length + '">' + result.length + ' z 9</h3>');
+						res.write('<h3 id = "H3" parfumType="3" data-color="' + result.length + '">' + (result.length + 1) + ' z 10</h3>');
 						fs.readFile('./html/parfumFormTop.html', function (err, html) {
 							if (err) throw err;
 							res.write(html);
