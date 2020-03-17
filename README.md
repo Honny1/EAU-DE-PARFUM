@@ -1,22 +1,53 @@
 # EAU-DE-PARFUM
+
 Application for faster game evaluation.
 
-## Production run on WINDOWS
+## Run on Windows
+
+## Install
+
+Install app with exe file in [releases](https://github.com/Honny1/EAU-DE-PARFUM/releases).
+Run with icon on your desktop. 
+
+### Run from source
+
+```bash
+git clone https://github.com/Honny1/EAU-DE-PARFUM.git
+cd EAU-DE-PARFUM
+```
 
 **WARNING**
 > before run unzip mongodb.zip!
-```bash
-run.cmd
+
 ```
-## Developer run on linux/win
+run.cmd
+``` 
+
+# For developer
+
+## Run on Linux/Win
+
+```bash
+git clone https://github.com/Honny1/EAU-DE-PARFUM.git
+cd EAU-DE-PARFUM
+
+```
+
+* Install Node.js https://nodejs.org/en/
+* Install MongoDB https://www.mongodb.com/download-center/community
+
 ```bash
 npx nodemon (need install node.js and mongodb server)
 ```
-## Budil app window/linux/macos (need mongodb server on localhost)
+Then open http://127.0.0.1:8080 in web browser.
+
+## Budil app window/linux/macos
+
 ```bash
 npx pkg index.js
 ```
 ## Setup for Armbian 
+
 ```bash
 #INSTALL MONGODB 
 
