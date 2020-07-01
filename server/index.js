@@ -220,15 +220,24 @@ function returnMixPage(req, res) {
 				db.close();
 				res.write('<label for="sel1">Tým</label>');
 				res.write('<select id="teamName" class="teamName" size="1" required>');
-				res.write('<option value="" disabled selected>Vyber tým</option>');
+				if (req.query.teamName == undefined) {
+					res.write('<option value="" disabled selected>Vyber tým</option>');
+				} else {
+					res.write('<option value="' + req.query.teamName + '" selected>'
+						+ req.query.teamName + '</option>');
+				}
 				teams.forEach(function (item) {
 					res.write('<option value="' + item + '">' + item + '</option>');
 				});
 				res.write('</select>');
-
 				res.write('<label for="sel1" class="labelPerfume">Parfém</label>');
 				res.write('<select id="parfumName" class="perfumeName" size="1" required>');
-				res.write('<option value="" disabled selected>Vyber parfém</option>');
+				if (req.query.parfum == undefined) {
+					res.write('<option value="" disabled selected>Vyber parfém</option>');
+				} else {
+					res.write('<option value="' + req.query.parfum + '" selected>'
+						+ req.query.parfum + '</option>');
+				}
 				data.parfums.forEach(function (item) {
 					switch (item.Type) {
 						case "EAU DE COLOGNE":
@@ -363,7 +372,8 @@ function teamInfo(req, res) {
 				team.attempts.forEach(function (item, index) {
 					var parfum = data.parfums.find(parfum => parfum.Name === item.parfumName);
 					res.write('</br><h4 style="font-weight: bold;">' + parfum.ID +
-						" " + item.parfumName + ': ' + item.try + '</h4>');
+						" " + item.parfumName + ': ' + item.try + '<a href="/mix?parfum=' +
+						item.parfumName + '&teamName=' + team.name + '"> znovu </a> </h4>');
 					res.write('<table style="width:100%;">');
 					res.write('<tr>');
 					res.write('<th>Správné řešení: </th>');
